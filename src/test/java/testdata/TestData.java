@@ -17,4 +17,9 @@ public class TestData {
             state = "NCR",
             city = "Delhi";
 
+    public static String minFirstName = "A",
+            minLastName = "B",
+            minGender = "Male",
+            minMobile = "9999999999";
+
 }

@@ -3,17 +3,20 @@ package tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPage;
+import static testdata.TestData.*;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static testdata.TestData.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+
 
 public class PracticeFormTest extends TestBase {
 
     @Test
     @DisplayName("Успешное полное заполнение формы - всплыв. окно 'Thanks for submitting the form'")
-    void successfulFillFormTest() {
+    void successfulFillFormFullData() {
         PracticeFormPage form = new PracticeFormPage();
 
         File picture = new File("src/test/resources/Picture.png");
@@ -36,8 +39,7 @@ public class PracticeFormTest extends TestBase {
                 .selectCity(city)
                 .submit();
 
-        assertEquals("Thanks for submitting the form",
-                form.getModalTitleText());
+        assertEquals("Thanks for submitting the form", form.getModalTitleText());
 
         assertEquals(
                 firstName + " " + lastName,
@@ -64,6 +66,38 @@ public class PracticeFormTest extends TestBase {
                 state + " " + city,
                 form.getResultValue("State and City")
         );
+    }
 
+    @Test
+    @DisplayName("Минимальное количество данных (только обязательные поля)")
+    void submitWithMinimalRequiredData() {
+        PracticeFormPage form = new PracticeFormPage();
+
+        form.openPage()
+                .setFirstName(minFirstName)
+                .setLastName(minLastName)
+                .chooseGender(minGender)
+                .setMobile(minMobile)
+                .submit();
+
+        assertEquals("Thanks for submitting the form", form.getModalTitleText());
+
+        assertEquals(
+                minFirstName + " " + minLastName,
+                form.getResultValue("Student Name")
+        );
+        assertEquals(minGender, form.getResultValue("Gender"));
+        assertEquals(minMobile, form.getResultValue("Mobile"));
+    }
+
+    @Test
+    @DisplayName("Негативный кейс. Пустая форма - нет всплыв. окна")
+    void submitEmptyFormShouldNotOpenModal() {
+        PracticeFormPage form = new PracticeFormPage();
+
+        form.openPage()
+                .submit();
+
+        assertFalse(form.isModalOpened());
     }
 }
