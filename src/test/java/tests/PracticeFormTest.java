@@ -3,7 +3,6 @@ package tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPage;
-import testdata.TestData;
 
 import java.io.File;
 
@@ -21,9 +20,9 @@ public class PracticeFormTest extends TestBase {
         String pictureName = picture.getName();
 
         form.openPage()
-                .setFirstName(TestData.firstName)
-                .setLastName(TestData.lastName)
-                .setEmail(TestData.email)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
                 .chooseGender(gender)
                 .setMobile(mobile)
                 .setBirthDate(day, month, year)
@@ -41,28 +40,28 @@ public class PracticeFormTest extends TestBase {
                 form.getModalTitleText());
 
         assertEquals(
-                TestData.firstName + " " + TestData.lastName,
+                firstName + " " + lastName,
                 form.getResultValue("Student Name")
         );
-        assertEquals(TestData.email, form.getResultValue("Student Email"));
-        assertEquals(TestData.gender, form.getResultValue("Gender"));
-        assertEquals(TestData.mobile, form.getResultValue("Mobile"));
+        assertEquals(email, form.getResultValue("Student Email"));
+        assertEquals(gender, form.getResultValue("Gender"));
+        assertEquals(mobile, form.getResultValue("Mobile"));
         assertEquals(
-                TestData.day + " " + TestData.month + "," + TestData.year,
+                day + " " + month + "," + year,
                 form.getResultValue("Date of Birth")
         );
         assertEquals(
-                TestData.subject1 + ", " + TestData.subject2,
+                subject1 + ", " + subject2,
                 form.getResultValue("Subjects")
         );
         assertEquals(
-                TestData.hobby1 + ", " + TestData.hobby2,
+                hobby1 + ", " + hobby2,
                 form.getResultValue("Hobbies")
         );
         assertEquals(pictureName, form.getResultValue("Picture"));
-        assertEquals(TestData.address, form.getResultValue("Address"));
+        assertEquals(address, form.getResultValue("Address"));
         assertEquals(
-                TestData.state + " " + TestData.city,
+                state + " " + city,
                 form.getResultValue("State and City")
         );
 

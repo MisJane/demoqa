@@ -3,7 +3,6 @@ package tests;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import testdata.TestData;
 
 import java.io.File;
 
@@ -35,10 +34,10 @@ public class SimplePracticeFormTest extends TestBase {
         $$(".router-link").findBy(text("Practice Form")).click();
 
         $(".practice-form-wrapper").shouldBe(visible);
-        $("#firstName").shouldBe(visible).setValue(TestData.firstName);
+        $("#firstName").shouldBe(visible).setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(TestData.gender)).click();
+        $("#genterWrapper").$(byText(gender)).click();
         $("#userNumber").setValue(mobile);
 
         $("#dateOfBirthInput").click();
@@ -74,28 +73,28 @@ public class SimplePracticeFormTest extends TestBase {
                 $("#example-modal-sizes-title-lg").getText());
 
         assertEquals(
-                TestData.firstName + " " + TestData.lastName,
+                firstName + " " + lastName,
                 getResultValue("Student Name")
         );
-        assertEquals(TestData.email, getResultValue("Student Email"));
-        assertEquals(TestData.gender, getResultValue("Gender"));
-        assertEquals(TestData.mobile, getResultValue("Mobile"));
+        assertEquals(email, getResultValue("Student Email"));
+        assertEquals(gender, getResultValue("Gender"));
+        assertEquals(mobile, getResultValue("Mobile"));
         assertEquals(
-                TestData.day + " " + TestData.month + "," + TestData.year,
+                day + " " + month + "," + year,
                 getResultValue("Date of Birth")
         );
         assertEquals(
-                TestData.subject1 + ", " + TestData.subject2,
+                subject1 + ", " + subject2,
                 getResultValue("Subjects")
         );
         assertEquals(
-                TestData.hobby1 + ", " + TestData.hobby2,
+                hobby1 + ", " + hobby2,
                 getResultValue("Hobbies")
         );
         assertEquals(pictureName, getResultValue("Picture"));
-        assertEquals(TestData.address, getResultValue("Address"));
+        assertEquals(address, getResultValue("Address"));
         assertEquals(
-                TestData.state + " " + TestData.city,
+                state + " " + city,
                 getResultValue("State and City")
         );
     }
