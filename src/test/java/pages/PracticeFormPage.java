@@ -1,14 +1,22 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.components.CalendarComponent;
+import pages.components.ResultsTableComponent;
+import pages.components.StateCityComponent;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 
 public class PracticeFormPage {
+
+    private final CalendarComponent calendarComponent = new CalendarComponent();
+    private final ResultsTableComponent resultsTableComponent = new ResultsTableComponent();
+    private final StateCityComponent stateCityComponent = new StateCityComponent();
 
     private final SelenideElement firstNameInput = $("#firstName");
     private final SelenideElement lastNameInput = $("#lastName");
@@ -20,10 +28,7 @@ public class PracticeFormPage {
     private final SelenideElement hobbiesWrapper = $("#hobbiesWrapper");
     private final SelenideElement uploadPictureInput = $("#uploadPicture");
     private final SelenideElement currentAddressTextArea = $("#currentAddress");
-    private final SelenideElement stateDropdown = $("#state");
-    private final SelenideElement cityDropdown = $("#city");
     private final SelenideElement submitButton = $("#submit");
-    private final SelenideElement resultTable = $(".table-responsive");
     private final SelenideElement modalTitle = $("#example-modal-sizes-title-lg");
 
     public PracticeFormPage openPage() {
@@ -32,6 +37,7 @@ public class PracticeFormPage {
         $$(".card-body").findBy(text("Forms")).click();
         $$(".router-link").findBy(text("Practice Form")).click();
 
+        $(".practice-form-wrapper").shouldBe(visible);
         return this;
     }
 
@@ -62,10 +68,7 @@ public class PracticeFormPage {
 
     public PracticeFormPage setBirthDate(String day, String month, String year) {
         dateOfBirthInput.click();
-        $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(year);
-        $(".react-datepicker__day--0" + day +
-                ":not(.react-datepicker__day--outside-month)").click();
+        calendarComponent.setDate(day, month, year);
         return this;
     }
 
@@ -90,16 +93,12 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage selectState(String state) {
-        stateDropdown.scrollTo();
-        stateDropdown.click();
-        $("#stateCity-wrapper").$(byText(state)).click();
+        stateCityComponent.selectState(state);
         return this;
     }
 
     public PracticeFormPage selectCity(String city) {
-        cityDropdown.scrollTo();
-        cityDropdown.click();
-        $("#stateCity-wrapper").$(byText(city)).click();
+        stateCityComponent.selectCity(city);
         return this;
     }
 
@@ -112,10 +111,21 @@ public class PracticeFormPage {
         return modalTitle.getText();
     }
 
-    public String getResultValue(String rowName) {
-        return resultTable.$(byText(rowName))
-                .parent()
-                .$$("td").get(1)
-                .getText();
+    public String getResultValue(String key) {
+        return resultsTableComponent.getValue(key);
+    }
+
+    public PracticeFormPage checkResult(String key, String value) {
+        resultsTableComponent.checkResult(key, value);
+        return this;
+    }
+
+    public PracticeFormPage checkNegativeValidation() {
+        resultsTableComponent.negativeCheck();
+        return this;
+    }
+
+    public boolean isModalOpened() {
+        return modalTitle.is(visible);
     }
 }
