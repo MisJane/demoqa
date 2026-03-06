@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -25,10 +24,15 @@ public class SimplePracticeFormTest extends TestBase {
     @Test
     @DisplayName("Успешное заполнение формы 'Student Registration Form'- всплывающее окно 'Thanks for submitting the form'")
     void fillSimpleForm() {
-        File picture = new File("src/test/resources/Picture.png");
-        String pictureName = picture.getName();
+
+        String pictureName = "Picture.png";
 
         open("/");
+
+        executeJavaScript(
+                "document.getElementById('fixedban')?.remove();" +
+                        "document.querySelector('footer')?.remove();"
+        );
 
         $$(".card-body").findBy(text("Forms")).click();
         $$(".router-link").findBy(text("Practice Form")).click();
@@ -52,7 +56,7 @@ public class SimplePracticeFormTest extends TestBase {
         $("#hobbiesWrapper").$(byText(hobby1)).click();
         $("#hobbiesWrapper").$(byText(hobby2)).click();
 
-        $("#uploadPicture").uploadFile(picture);
+        $("#uploadPicture").uploadFromClasspath(pictureName);
 
         $("#currentAddress").setValue(address);
 

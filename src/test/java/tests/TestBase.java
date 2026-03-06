@@ -19,11 +19,4 @@ public class TestBase {
 
     }
 
-/*    @AfterEach
-    void afterEach() {
-        TestInfo testInfo = null;
-        if (testInfo.getTestMethod().isPresent()) {
-            screenshot(testInfo.getDisplayName());
-        }
-    }*/
 }
