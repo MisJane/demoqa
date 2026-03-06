@@ -21,7 +21,7 @@ public class RadioButtonTest extends TestBase {
 
     @Test
     @DisplayName("Выбор Impressive - отображается 'You have selected Impressive', No отключён")
-    void selectImpressive() {
+    void successfullSelectImpressiveTest() {
         RadioButtonPage page = new RadioButtonPage();
 
         page.openPage()

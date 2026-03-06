@@ -23,7 +23,7 @@ public class SimplePracticeFormTest extends TestBase {
 
     @Test
     @DisplayName("Успешное заполнение формы 'Student Registration Form'- всплывающее окно 'Thanks for submitting the form'")
-    void fillSimpleForm() {
+    void successfullFillDataSimpleFormTest() {
 
         String pictureName = "Picture.png";
 
