@@ -27,7 +27,7 @@ public class SimplePracticeFormTest extends TestBase {
 
         String pictureName = "Picture.png";
 
-        open("/");
+        open("");
 
         executeJavaScript(
                 "document.getElementById('fixedban')?.remove();" +
