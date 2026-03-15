@@ -9,7 +9,7 @@ public class TextBoxTest extends TestBase {
 
     @Test
     @DisplayName("Успешное заполнение формы Text Box - проверка в блоке вывода")
-    void fillTextBoxFormAndCheckOutput() {
+    void fillTextBoxFormAndCheckOutputTest() {
         TextBoxPage textBox = new TextBoxPage();
 
         textBox.openPage()
