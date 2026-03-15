@@ -8,7 +8,7 @@ public class CheckBoxTest extends TestBase {
 
     @Test
     @DisplayName("Все вложенные чекбоксы отмечены и отображаются в результатах")
-    void selectHomeShowsAllInResult() {
+    void selectHomeShowsAllInResultTest() {
         CheckBoxPage page = new CheckBoxPage();
 
         page.openPage()
@@ -26,7 +26,7 @@ public class CheckBoxTest extends TestBase {
 
     @Test
     @DisplayName("Выбор Desktop - в результатах только ветка desktop")
-    void selectDesktopOnly() {
+    void selectDesktopOnlyTest() {
         CheckBoxPage page = new CheckBoxPage();
 
         page.openPage()
