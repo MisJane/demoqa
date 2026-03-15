@@ -16,7 +16,7 @@ public class PracticeFormTest extends TestBase {
 
     @Test
     @DisplayName("Успешное полное заполнение формы - всплыв. окно 'Thanks for submitting the form'")
-    void successfulFillFormFullData() {
+    void successfulFillFormFullDataTest() {
         PracticeFormPage form = new PracticeFormPage();
 
         File picture = new File("src/test/resources/Picture.png");
@@ -70,7 +70,7 @@ public class PracticeFormTest extends TestBase {
 
     @Test
     @DisplayName("Минимальное количество данных (только обязательные поля)")
-    void submitWithMinimalRequiredData() {
+    void submitWithMinimalRequiredDataTest() {
         PracticeFormPage form = new PracticeFormPage();
 
         form.openPage()
@@ -92,7 +92,7 @@ public class PracticeFormTest extends TestBase {
 
     @Test
     @DisplayName("Негативный кейс. Пустая форма - нет всплыв. окна")
-    void submitEmptyFormShouldNotOpenModal() {
+    void submitEmptyFormShouldNotOpenModalTest() {
         PracticeFormPage form = new PracticeFormPage();
 
         form.openPage()
