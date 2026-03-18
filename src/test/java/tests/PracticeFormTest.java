@@ -3,13 +3,13 @@ package tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPage;
+
 import static testdata.TestData.*;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
 
 
 public class PracticeFormTest extends TestBase {
@@ -41,31 +41,17 @@ public class PracticeFormTest extends TestBase {
 
         assertEquals("Thanks for submitting the form", form.getModalTitleText());
 
-        assertEquals(
-                firstName + " " + lastName,
-                form.getResultValue("Student Name")
-        );
-        assertEquals(email, form.getResultValue("Student Email"));
-        assertEquals(gender, form.getResultValue("Gender"));
-        assertEquals(mobile, form.getResultValue("Mobile"));
-        assertEquals(
-                day + " " + month + "," + year,
-                form.getResultValue("Date of Birth")
-        );
-        assertEquals(
-                subject1 + ", " + subject2,
-                form.getResultValue("Subjects")
-        );
-        assertEquals(
-                hobby1 + ", " + hobby2,
-                form.getResultValue("Hobbies")
-        );
-        assertEquals(pictureName, form.getResultValue("Picture"));
-        assertEquals(address, form.getResultValue("Address"));
-        assertEquals(
-                state + " " + city,
-                form.getResultValue("State and City")
-        );
+        form.checkResult("Student Name", firstName + " " + lastName);
+        form.checkResult("Student Email", email);
+        form.checkResult("Gender", gender);
+        form.checkResult("Mobile", mobile);
+        form.checkResult("Date of Birth", day + " " + month + "," + year);
+        form.checkResult("Subjects", subject1 + ", " + subject2);
+        form.checkResult("Hobbies", hobby1 + ", " + hobby2);
+        form.checkResult("Picture", pictureName);
+        form.checkResult("Address", address);
+        form.checkResult("State and City", state + " " + city);
+
     }
 
     @Test
@@ -82,12 +68,10 @@ public class PracticeFormTest extends TestBase {
 
         assertEquals("Thanks for submitting the form", form.getModalTitleText());
 
-        assertEquals(
-                minFirstName + " " + minLastName,
-                form.getResultValue("Student Name")
-        );
-        assertEquals(minGender, form.getResultValue("Gender"));
-        assertEquals(minMobile, form.getResultValue("Mobile"));
+        form.checkResult("Student Name", minFirstName + " " + minLastName);
+        form.checkResult("Gender", minGender);
+        form.checkResult("Mobile", minMobile);
+
     }
 
     @Test
@@ -99,5 +83,7 @@ public class PracticeFormTest extends TestBase {
                 .submit();
 
         assertFalse(form.isModalOpened());
+
+        form.checkNegativeValidation();
     }
 }

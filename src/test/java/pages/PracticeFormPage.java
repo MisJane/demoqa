@@ -111,9 +111,6 @@ public class PracticeFormPage {
         return modalTitle.getText();
     }
 
-    public String getResultValue(String key) {
-        return resultsTableComponent.getValue(key);
-    }
 
     public PracticeFormPage checkResult(String key, String value) {
         resultsTableComponent.checkResult(key, value);
