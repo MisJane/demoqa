@@ -46,24 +46,6 @@ public class TestData {
         return hobbies[new Faker().random().nextInt(hobbies.length)];
     }
 
-   /* public static final Map<String, String[]> stateToCities = new HashMap<>();
-
-    public static void initStateCities() {
-        stateToCities.put("NCR", new String[]{"Delhi", "Gurgaon", "Noida"});
-        stateToCities.put("Uttar Pradesh", new String[]{"Agra", "Lucknow", "Merrut"});
-        stateToCities.put("Haryana", new String[]{"Karnal", "Panipat"});
-        stateToCities.put("Rajasthan", new String[]{"Jaipur", "Jaiselmer"});
-    }
-
-    public static String[] getRandomStateCityPair() {
-        String[][] pairs = {
-                {"NCR", "Delhi"}, {"NCR", "Gurgaon"}, {"NCR", "Noida"},
-                {"Uttar Pradesh", "Agra"}, {"Uttar Pradesh", "Lucknow"}, {"Uttar Pradesh", "Merrut"},
-                {"Haryana", "Karnal"}, {"Haryana", "Panipat"},
-                {"Rajasthan", "Jaipur"}, {"Rajasthan", "Jaiselmer"}
-        };
-        return pairs[new Faker().random().nextInt(pairs.length)];
-    }*/
 
     public static String getRandomState() {
         return faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
