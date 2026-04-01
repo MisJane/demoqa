@@ -62,8 +62,7 @@ public class PracticeFormTest extends TestBase {
         String lastName = faker.name().lastName();
         String email = faker.internet().safeEmailAddress();
         String gender = faker.random().nextBoolean() ? "Male" : "Female";
-        // String mobile = faker.phoneNumber().phoneNumber().substring(0, 10);   //оставила пока для примера
-        String mobile = faker.number().digits(10);
+        String mobile = faker.phoneNumber().subscriberNumber(10);
         String day = String.format("%02d", faker.number().numberBetween(1, 28));
         String month = TestData.getRandomMonth();
         String year = String.valueOf(faker.number().numberBetween(1980, 2005));
