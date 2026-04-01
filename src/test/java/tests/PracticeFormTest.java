@@ -57,7 +57,6 @@ public class PracticeFormTest extends TestBase {
     @DisplayName("Успешное полное заполнение формы - всплыв. окно 'Thanks for submitting the form'")
     void successfulFillFormFullDataTest_WithFaker() {
         Faker faker = new Faker();
-        TestData.initStateCities();
 
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
@@ -73,9 +72,8 @@ public class PracticeFormTest extends TestBase {
         String hobby1 = TestData.getRandomHobby();
         String hobby2 = TestData.getRandomHobby();
         String address = faker.address().streetAddress();
-        String[] stateCity = TestData.getRandomStateCityPair();
-        String state = stateCity[0];
-        String city = stateCity[1];
+        String state = TestData.getRandomState();
+        String city = TestData.selectCity(state);
 
         File picture = new File("src/test/resources/Picture.png");
         String pictureName = picture.getName();
@@ -87,10 +85,10 @@ public class PracticeFormTest extends TestBase {
                 .chooseGender(gender)
                 .setMobile(mobile)
                 .setBirthDate(day, month, year)
-                .addSubject(getRandomSubject())
-                .addSubject(getRandomSubject())
-                .chooseHobby(getRandomHobby())
-                .chooseHobby(getRandomHobby())
+                .addSubject(subject1)
+                .addSubject(subject2)
+                .chooseHobby(hobby1)
+                .chooseHobby(hobby2)
                 .uploadPicture(pictureName)
                 .setAddress(address)
                 .selectState(state)

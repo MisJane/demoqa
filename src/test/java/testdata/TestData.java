@@ -2,10 +2,9 @@ package testdata;
 
 import com.github.javafaker.Faker;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TestData {
+    static Faker faker = new Faker();
+
     public static String firstName = "Valar",
             lastName = "Morghules",
             email = "em@il.it",
@@ -30,7 +29,6 @@ public class TestData {
 
 
     public static String getRandomMonth() {
-        Faker faker = new Faker();
         return faker.options().option(
                 "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
@@ -48,7 +46,7 @@ public class TestData {
         return hobbies[new Faker().random().nextInt(hobbies.length)];
     }
 
-    public static final Map<String, String[]> stateToCities = new HashMap<>();
+   /* public static final Map<String, String[]> stateToCities = new HashMap<>();
 
     public static void initStateCities() {
         stateToCities.put("NCR", new String[]{"Delhi", "Gurgaon", "Noida"});
@@ -65,5 +63,19 @@ public class TestData {
                 {"Rajasthan", "Jaipur"}, {"Rajasthan", "Jaiselmer"}
         };
         return pairs[new Faker().random().nextInt(pairs.length)];
+    }*/
+
+    public static String getRandomState() {
+        return faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
+    }
+
+    public static String selectCity(String state) {
+        return switch (state) {
+            case "NCR" -> faker.options().option("Delhi", "Gurgaon", "Noida");
+            case "Uttar Pradesh" -> faker.options().option("Agra", "Lucknow", "Merrut");
+            case "Haryana" -> faker.options().option("Karnal", "Panipat");
+            case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");
+            default -> null;
+        };
     }
 }
