@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import java.security.SecureRandom;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,6 +30,7 @@ public class RandomUtils {
         return rand.nextInt(max - min + 1) + min;*/
     }
 
+    //getRandomPhoneNumber и getRandomGender уберу (просто пример)
     public static String getRandomPhoneNumber() {
         String phoneTemplate = "+%s (%s) %s - %s - %s";
         return format(phoneTemplate, getRandomInt(111, 999), getRandomInt(111, 999),

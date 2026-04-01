@@ -1,5 +1,10 @@
 package testdata;
 
+import com.github.javafaker.Faker;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class TestData {
     public static String firstName = "Valar",
             lastName = "Morghules",
@@ -23,4 +28,42 @@ public class TestData {
             minGender = "Male",
             minMobile = "9999999999";
 
+
+    public static String getRandomMonth() {
+        Faker faker = new Faker();
+        return faker.options().option(
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        );
+    }
+
+    public static String getRandomSubject() {
+        String[] subjects = {"Maths", "Physics", "Chemistry", "Biology", "Computer Science",
+                "Economics", "History", "Civics"};
+        return subjects[new Faker().random().nextInt(subjects.length)];
+    }
+
+    public static String getRandomHobby() {
+        String[] hobbies = {"Sports", "Reading", "Music"};
+        return hobbies[new Faker().random().nextInt(hobbies.length)];
+    }
+
+    public static final Map<String, String[]> stateToCities = new HashMap<>();
+
+    public static void initStateCities() {
+        stateToCities.put("NCR", new String[]{"Delhi", "Gurgaon", "Noida"});
+        stateToCities.put("Uttar Pradesh", new String[]{"Agra", "Lucknow", "Merrut"});
+        stateToCities.put("Haryana", new String[]{"Karnal", "Panipat"});
+        stateToCities.put("Rajasthan", new String[]{"Jaipur", "Jaiselmer"});
+    }
+
+    public static String[] getRandomStateCityPair() {
+        String[][] pairs = {
+                {"NCR", "Delhi"}, {"NCR", "Gurgaon"}, {"NCR", "Noida"},
+                {"Uttar Pradesh", "Agra"}, {"Uttar Pradesh", "Lucknow"}, {"Uttar Pradesh", "Merrut"},
+                {"Haryana", "Karnal"}, {"Haryana", "Panipat"},
+                {"Rajasthan", "Jaipur"}, {"Rajasthan", "Jaiselmer"}
+        };
+        return pairs[new Faker().random().nextInt(pairs.length)];
+    }
 }

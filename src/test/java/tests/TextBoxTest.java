@@ -6,8 +6,8 @@ import pages.TextBoxPage;
 import testdata.TextBoxData;
 import com.github.javafaker.Faker;
 
-import static Utils.RandomUtils.getRandomEmail;
-import static Utils.RandomUtils.getRandomString;
+import static utils.RandomUtils.getRandomEmail;
+import static utils.RandomUtils.getRandomString;
 
 public class TextBoxTest extends TestBase {
     TextBoxPage textBox = new TextBoxPage();
