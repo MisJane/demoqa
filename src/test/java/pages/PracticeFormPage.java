@@ -17,26 +17,26 @@ public class PracticeFormPage {
     private final ResultsTableComponent resultsTableComponent = new ResultsTableComponent();
     private final StateCityComponent stateCityComponent = new StateCityComponent();
 
-    private final SelenideElement firstNameInput = $("#firstName");
-    private final SelenideElement lastNameInput = $("#lastName");
-    private final SelenideElement userEmailInput = $("#userEmail");
-    private final SelenideElement genderWrapper = $("#genterWrapper");
-    private final SelenideElement userNumberInput = $("#userNumber");
-    private final SelenideElement dateOfBirthInput = $("#dateOfBirthInput");
-    private final SelenideElement subjectsInput = $("#subjectsInput");
-    private final SelenideElement hobbiesWrapper = $("#hobbiesWrapper");
-    private final SelenideElement uploadPictureInput = $("#uploadPicture");
-    private final SelenideElement currentAddressTextArea = $("#currentAddress");
-    private final SelenideElement submitButton = $("#submit");
-    private final SelenideElement modalTitle = $("#example-modal-sizes-title-lg");
+    private final SelenideElement firstNameInput = element("#firstName");
+    private final SelenideElement lastNameInput = element("#lastName");
+    private final SelenideElement userEmailInput = element("#userEmail");
+    private final SelenideElement genderWrapper = element("#genterWrapper");
+    private final SelenideElement userNumberInput = element("#userNumber");
+    private final SelenideElement dateOfBirthInput = element("#dateOfBirthInput");
+    private final SelenideElement subjectsInput = element("#subjectsInput");
+    private final SelenideElement hobbiesWrapper = element("#hobbiesWrapper");
+    private final SelenideElement uploadPictureInput = element("#uploadPicture");
+    private final SelenideElement currentAddressTextArea = element("#currentAddress");
+    private final SelenideElement submitButton = element("#submit");
+    private final SelenideElement modalTitle = element("#example-modal-sizes-title-lg");
 
     public PracticeFormPage openPage() {
         open("/");
 
-        $$(".card-body").findBy(text("Forms")).click();
-        $$(".router-link").findBy(text("Practice Form")).click();
+        elements(".card-body").findBy(text("Forms")).click();
+        elements(".router-link").findBy(text("Practice Form")).click();
 
-        $(".practice-form-wrapper").shouldBe(visible);
+        element(".practice-form-wrapper").shouldBe(visible);
         return this;
     }
 
