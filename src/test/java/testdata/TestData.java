@@ -13,6 +13,7 @@ public class TestData {
             subject2 = "Physics",
             hobby1 = "Sports",
             hobby2 = "Music",
+            pictureName = "Picture.png",
             address = "Some current address, 1-2, 3",
             state = "NCR",
             city = "Delhi";

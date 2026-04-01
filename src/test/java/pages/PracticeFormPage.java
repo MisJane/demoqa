@@ -5,7 +5,6 @@ import pages.components.CalendarComponent;
 import pages.components.ResultsTableComponent;
 import pages.components.StateCityComponent;
 
-import java.io.File;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -82,8 +81,8 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage uploadPicture(File file) {
-        uploadPictureInput.uploadFile(file);
+    public PracticeFormPage uploadPicture(String pictureName) {
+        uploadPictureInput.uploadFromClasspath(pictureName);
         return this;
     }
 
