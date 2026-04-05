@@ -3,6 +3,7 @@ package tests;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import testdata.TestData;
 
 
 import static com.codeborne.selenide.Condition.text;
@@ -10,7 +11,6 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static testdata.TestData.*;
 
 public class SimplePracticeFormTest extends TestBase {
 
@@ -24,7 +24,7 @@ public class SimplePracticeFormTest extends TestBase {
     @Test
     @DisplayName("Успешное заполнение формы 'Student Registration Form'- всплывающее окно 'Thanks for submitting the form'")
     void successfullFillDataSimpleFormTest() {
-
+        TestData data = new TestData();
         String pictureName = "Picture.png";
 
         open("");
@@ -38,37 +38,37 @@ public class SimplePracticeFormTest extends TestBase {
         $$(".router-link").findBy(text("Practice Form")).click();
 
         $(".practice-form-wrapper").shouldBe(visible);
-        $("#firstName").shouldBe(visible).setValue(firstName);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(gender)).click();
-        $("#userNumber").setValue(mobile);
+        $("#firstName").shouldBe(visible).setValue(data.firstNameSimple);
+        $("#lastName").setValue(data.lastNameSimple);
+        $("#userEmail").setValue(data.emailSimple);
+        $("#genterWrapper").$(byText(data.genderSimple)).click();
+        $("#userNumber").setValue(data.mobileSimple);
 
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(year);
-        $(".react-datepicker__day--0" + day +
+        $(".react-datepicker__month-select").selectOption(data.monthSimple);
+        $(".react-datepicker__year-select").selectOption(data.yearSimple);
+        $(".react-datepicker__day--0" + data.daySimple +
                 ":not(.react-datepicker__day--outside-month)").click();
 
-        $("#subjectsInput").setValue(subject1).pressEnter();
-        $("#subjectsInput").setValue(subject2).pressEnter();
+        $("#subjectsInput").setValue(data.subject1Simple).pressEnter();
+        $("#subjectsInput").setValue(data.subject2Simple).pressEnter();
 
-        $("#hobbiesWrapper").$(byText(hobby1)).click();
-        $("#hobbiesWrapper").$(byText(hobby2)).click();
+        $("#hobbiesWrapper").$(byText(data.hobby1Simple)).click();
+        $("#hobbiesWrapper").$(byText(data.hobby2Simple)).click();
 
         $("#uploadPicture").uploadFromClasspath(pictureName);
 
-        $("#currentAddress").setValue(address);
+        $("#currentAddress").setValue(data.addressSimple);
 
         SelenideElement stateDropdown = $("#state");
         stateDropdown.scrollTo();
         stateDropdown.click();
-        $("#stateCity-wrapper").$(byText(state)).click();
+        $("#stateCity-wrapper").$(byText(data.stateSimple)).click();
 
         SelenideElement cityDropdown = $("#city");
         cityDropdown.scrollTo();
         cityDropdown.click();
-        $("#stateCity-wrapper").$(byText(city)).click();
+        $("#stateCity-wrapper").$(byText(data.citySimple)).click();
 
         $("#submit").scrollTo().click();
 
@@ -77,28 +77,28 @@ public class SimplePracticeFormTest extends TestBase {
                 $("#example-modal-sizes-title-lg").getText());
 
         assertEquals(
-                firstName + " " + lastName,
+                data.firstNameSimple + " " + data.lastNameSimple,
                 getResultValue("Student Name")
         );
-        assertEquals(email, getResultValue("Student Email"));
-        assertEquals(gender, getResultValue("Gender"));
-        assertEquals(mobile, getResultValue("Mobile"));
+        assertEquals(data.emailSimple, getResultValue("Student Email"));
+        assertEquals(data.genderSimple, getResultValue("Gender"));
+        assertEquals(data.mobileSimple, getResultValue("Mobile"));
         assertEquals(
-                day + " " + month + "," + year,
+                data.daySimple + " " + data.monthSimple + "," + data.yearSimple,
                 getResultValue("Date of Birth")
         );
         assertEquals(
-                subject1 + ", " + subject2,
+                data.subject1Simple + ", " + data.subject2Simple,
                 getResultValue("Subjects")
         );
         assertEquals(
-                hobby1 + ", " + hobby2,
+                data.hobby1Simple + ", " + data.hobby2Simple,
                 getResultValue("Hobbies")
         );
         assertEquals(pictureName, getResultValue("Picture"));
-        assertEquals(address, getResultValue("Address"));
+        assertEquals(data.addressSimple, getResultValue("Address"));
         assertEquals(
-                state + " " + city,
+                data.stateSimple + " " + data.citySimple,
                 getResultValue("State and City")
         );
     }
