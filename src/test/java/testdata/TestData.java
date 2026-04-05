@@ -46,6 +46,25 @@ public class TestData {
         return hobbies[faker.random().nextInt(hobbies.length)];
     }
 
+   //допфикс для явного разделения
+    private String[] twoDistinctHobbies() {
+        String h1 = getRandomHobby();
+        String h2;
+        do {
+            h2 = getRandomHobby();
+        } while (h2.equals(h1));
+        return new String[]{h1, h2};
+    }
+
+    private String[] twoDistinctSubjects() {
+        String s1 = getRandomSubject();
+        String s2;
+        do {
+            s2 = getRandomSubject();
+        } while (s2.equals(s1));
+        return new String[]{s1, s2};
+    }
+
     public String getRandomState() {
         return faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
     }
@@ -62,6 +81,8 @@ public class TestData {
 
     public RandomPracticeFormData randomPracticeFormData() {
         String state = getRandomState();
+        String[] subjects = twoDistinctSubjects();
+        String[] hobbies = twoDistinctHobbies();
         return new RandomPracticeFormData(
                 faker.name().firstName(),
                 faker.name().lastName(),
@@ -71,10 +92,10 @@ public class TestData {
                 String.format("%02d", faker.number().numberBetween(1, 28)),
                 getRandomMonth(),
                 String.valueOf(faker.number().numberBetween(1980, 2005)),
-                getRandomSubject(),
-                getRandomSubject(),
-                getRandomHobby(),
-                getRandomHobby(),
+                subjects[0],
+                subjects[1],
+                hobbies[0],
+                hobbies[1],
                 faker.address().streetAddress(),
                 state,
                 selectCity(state)
