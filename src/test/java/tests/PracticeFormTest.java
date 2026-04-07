@@ -2,8 +2,16 @@ package tests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import pages.PracticeFormPage;
 import testdata.TestData;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,6 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class PracticeFormTest extends TestBase {
     PracticeFormPage form = new PracticeFormPage();
+
+    enum GenderOption {
+        MALE("Male"),
+        FEMALE("Female"),
+        OTHER("Other");
+
+        final String uiValue;
+
+        GenderOption(String uiValue) {
+            this.uiValue = uiValue;
+        }
+    }
 
     @Test
     @DisplayName("Успешное полное заполнение формы - всплыв. окно 'Thanks for submitting the form'")
@@ -119,4 +139,86 @@ public class PracticeFormTest extends TestBase {
         form.checkNegativeValidation();
     }
 
+    @ParameterizedTest
+    @DisplayName("Минимальное количество данных (только обязательные поля) - параметризованный")
+    @CsvSource({
+        "A,B,Male,9999999999",
+        "C,D,Female,8888888888",
+        "E,F,Other,7777777777"})
+    void submitWithMinimalRequiredDataParameterizedTest(String firstName, String lastName, String gender, String mobile) {
+        form.openPage()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .chooseGender(gender)
+                .setMobile(mobile)
+                .submit();
+
+        assertEquals("Thanks for submitting the form", form.getModalTitleText());
+
+        form.checkResult("Student Name", firstName + " " + lastName);
+        form.checkResult("Gender", gender);
+        form.checkResult("Mobile", mobile);
+    }
+
+    @ParameterizedTest
+    @MethodSource("stateCityProvider")
+    @DisplayName("Параметризованный (MethodSource): валидные пары state/city")
+    void submitWithStateCityMethodSourceTest(String state, String city) {
+        TestData data = new TestData();
+
+        form.openPage()
+                .setFirstName(data.minFirstName)
+                .setLastName(data.minLastName)
+                .chooseGender(data.minGender)
+                .setMobile(data.minMobile)
+                .selectState(state)
+                .selectCity(city)
+                .submit();
+
+        assertEquals("Thanks for submitting the form", form.getModalTitleText());
+        form.checkResult("State and City", state + " " + city);
+    }
+
+    @ParameterizedTest
+    @EnumSource(GenderOption.class)
+    @DisplayName("Параметризованный (EnumSource): все значения Gender")
+    void submitWithAllGenderValuesEnumSourceTest(GenderOption genderOption) {
+        TestData data = new TestData();
+
+        form.openPage()
+                .setFirstName(data.minFirstName)
+                .setLastName(data.minLastName)
+                .chooseGender(genderOption.uiValue)
+                .setMobile(data.minMobile)
+                .submit();
+
+        assertEquals("Thanks for submitting the form", form.getModalTitleText());
+        form.checkResult("Gender", genderOption.uiValue);
+    }
+
+    @ParameterizedTest(name="[{index}] firstname={0} lastname={1} gender={2} mobile={3}")
+    @CsvFileSource(resources = "/testdata/minimal-required-data.csv", numLinesToSkip = 1)
+    @DisplayName("Параметризованный (CsvFileSource): обязательные поля")
+    void submitWithMinimalRequiredDataCsvFileSourceTest(String firstName, String lastName, String gender, String mobile) {
+        form.openPage()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .chooseGender(gender)
+                .setMobile(mobile)
+                .submit();
+
+        assertEquals("Thanks for submitting the form", form.getModalTitleText());
+        form.checkResult("Student Name", firstName + " " + lastName);
+        form.checkResult("Gender", gender);
+        form.checkResult("Mobile", mobile);
+    }
+
+    static Stream<Arguments> stateCityProvider() {
+        return Stream.of(
+                Arguments.of("NCR", "Delhi"),
+                Arguments.of("Uttar Pradesh", "Lucknow"),
+                Arguments.of("Haryana", "Karnal"),
+                Arguments.of("Rajasthan", "Jaipur")
+        );
+    }
 }
