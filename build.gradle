@@ -14,10 +14,22 @@ dependencies {
 
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
 test {
     useJUnitPlatform()
+}
+
+tasks.register('webTest', Test) {
+    description = 'Runs tests tagged with @Tag("WEB")'
+    group = 'verification'
+
+    useJUnitPlatform {
+        includeTags 'WEB'
+    }
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
 }

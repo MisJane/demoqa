@@ -1,6 +1,7 @@
 package tests;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,7 +17,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-
+@Tag("WEB")
 public class PracticeFormTest extends TestBase {
     PracticeFormPage form = new PracticeFormPage();
 
@@ -142,9 +143,9 @@ public class PracticeFormTest extends TestBase {
     @ParameterizedTest
     @DisplayName("Минимальное количество данных (только обязательные поля) - параметризованный")
     @CsvSource({
-        "A,B,Male,9999999999",
-        "C,D,Female,8888888888",
-        "E,F,Other,7777777777"})
+            "A,B,Male,9999999999",
+            "C,D,Female,8888888888",
+            "E,F,Other,7777777777"})
     void submitWithMinimalRequiredDataParameterizedTest(String firstName, String lastName, String gender, String mobile) {
         form.openPage()
                 .setFirstName(firstName)
@@ -196,7 +197,7 @@ public class PracticeFormTest extends TestBase {
         form.checkResult("Gender", genderOption.uiValue);
     }
 
-    @ParameterizedTest(name="[{index}] firstname={0} lastname={1} gender={2} mobile={3}")
+    @ParameterizedTest(name = "[{index}] firstname={0} lastname={1} gender={2} mobile={3}")
     @CsvFileSource(resources = "/testdata/minimal-required-data.csv", numLinesToSkip = 1)
     @DisplayName("Параметризованный (CsvFileSource): обязательные поля")
     void submitWithMinimalRequiredDataCsvFileSourceTest(String firstName, String lastName, String gender, String mobile) {
