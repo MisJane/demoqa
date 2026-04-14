@@ -1,5 +1,25 @@
 plugins {
     id 'java-library'
+    id 'io.qameta.allure' version '3.2.0'
+}
+
+allure {
+    version.set("2.30.0")
+
+    adapter {
+        allureJavaVersion.set("2.33.0")
+        aspectjVersion.set("1.9.24")
+
+        categoriesFile.set(layout.projectDirectory.file("config/allure/categories.json"))
+
+        frameworks {
+            junit5 {
+                enabled.set(true)
+                autoconfigureListeners.set(true)
+                adapterVersion.set("2.30.0")
+            }
+        }
+    }
 }
 
 repositories {
@@ -10,7 +30,8 @@ dependencies {
     testImplementation(
             "com.codeborne:selenide:7.14.0",
             "org.junit.jupiter:junit-jupiter:5.10.0",
-            'com.github.javafaker:javafaker:1.0.2')
+            'com.github.javafaker:javafaker:1.0.2',
+            'io.qameta.allure:allure-selenide:2.34.0')
 
 }
 
@@ -20,6 +41,7 @@ tasks.withType(JavaCompile).configureEach {
 
 test {
     useJUnitPlatform()
+    systemProperties(System.getProperties())
 }
 
 tasks.register('webTest', Test) {
