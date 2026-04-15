@@ -28,8 +28,7 @@ jobs:
       - name: Start Selenoid
         uses: Xotabu4/selenoid-github-action@v2
         with:
-          version: '1.10.15'
-          args: >-
+          selenoid-start-arguments: >-
             -limit 5
             -timeout 3m
 
